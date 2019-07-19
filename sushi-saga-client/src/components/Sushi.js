@@ -1,20 +1,29 @@
 import React, { Fragment } from 'react'
 
 const Sushi = (props) => {
+
+  const handleClick = event => {
+    if (props.moneyRemaining > props.sushi.price) {
+      if (event.target.nodeName === 'IMG') {
+        event.target.parentNode.removeChild(event.target)
+      }
+      else {
+        event.target.removeChild(event.target.children[0])
+      }
+      props.eatSushi(props.sushi)
+    }
+  }
+
   return (
     <div className="sushi">
       <div className="plate" 
-           onClick={/* Give me a callback! */ null}>
+           onClick={handleClick}>
         { 
-          /* Tell me if this sushi has been eaten! */ 
-          true ?
-            null
-          :
-            <img src={/* Give me an image source! */} width="100%" />
+            <img src={props.sushi.img_url} alt={props.sushi.name} width="100%" />
         }
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {props.sushi.name} - ${props.sushi.price}
       </h4>
     </div>
   )
