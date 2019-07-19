@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import SushiContainer from './containers/SushiContainer';
 import Table from './containers/Table';
+import AddBalance from './components/AddBalance';
 
 // Endpoint!
 const API = "http://localhost:3000/sushis"
@@ -50,7 +51,11 @@ class App extends Component {
       const displayedSushi = [...this.state.sushi]
       this.setState({displayedSushi})
     }
-    console.log(this.state.displayedSushi)
+  }
+
+  addBalance = amount => {
+    const moneyRemaining = this.state.moneyRemaining + amount
+    this.setState({moneyRemaining})
   }
 
   whileLoading = () => {
@@ -60,6 +65,7 @@ class App extends Component {
     else {
       return (
         <Fragment>
+        <AddBalance currentBalance={this.state.moneyRemaining} addBalance={this.addBalance} />
         <SushiContainer sushi={this.state.displayedSushi.slice(0, 4)} eatSushi={this.eatSushi} getMoreSushi={this.getMoreSushi} moneyRemaining={this.state.moneyRemaining}/>
         <Table totalCash={this.state.moneyRemaining} plates={this.state.plates} />
         </Fragment>
