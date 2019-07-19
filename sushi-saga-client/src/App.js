@@ -22,7 +22,7 @@ class App extends Component {
     fetch(API)
     .then(res => res.json())
     .then(json => {
-      this.setState({sushi: json, isLoading: false, displayedSushi: json.slice(0, 4)})
+      this.setState({sushi: json, isLoading: false, displayedSushi: json})
     })
 
   }
@@ -40,8 +40,9 @@ class App extends Component {
   }
 
   getMoreSushi = () => {
-    const shuffle = [...this.state.sushi].sort(() => 0.5 - Math.random())
-    const displayedSushi = shuffle.slice(0, 4)
+    const displayedSushi = [...this.state.displayedSushi].slice(3, -1)
+    console.log(this.state.displayedSushi)
+    console.log(displayedSushi)
     this.setState({displayedSushi})
   }
 
@@ -52,7 +53,7 @@ class App extends Component {
     else {
       return (
         <Fragment>
-        <SushiContainer sushi={this.state.displayedSushi} eatSushi={this.eatSushi} getMoreSushi={this.getMoreSushi} moneyRemaining={this.state.moneyRemaining}/>
+        <SushiContainer sushi={this.state.displayedSushi.slice(0, 4)} eatSushi={this.eatSushi} getMoreSushi={this.getMoreSushi} moneyRemaining={this.state.moneyRemaining}/>
         <Table totalCash={this.state.moneyRemaining} plates={this.state.plates} />
         </Fragment>
       )
