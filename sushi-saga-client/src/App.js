@@ -43,13 +43,14 @@ class App extends Component {
 
   getMoreSushi = () => {
     if (this.state.displayedSushi.length > 4) {
-      const displayedSushi = [...this.state.displayedSushi].slice(3, -1)
+      const displayedSushi = [...this.state.displayedSushi].slice(4)
       this.setState({ displayedSushi })
     }
     else {
       const displayedSushi = [...this.state.sushi]
       this.setState({displayedSushi})
     }
+    console.log(this.state.displayedSushi)
   }
 
   whileLoading = () => {
