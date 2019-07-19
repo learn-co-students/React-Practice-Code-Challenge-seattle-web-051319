@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 
 const Sushi = (props) => {
 
-  const handleClick = event => {
-    if (props.moneyRemaining >= props.sushi.price) {
+  const handleClick = () => {
+    if (props.moneyRemaining >= props.sushi.price && props.sushi.img_url) {
       props.eatSushi(props.sushi)
     }
   }
