@@ -3,24 +3,23 @@ import React, { Fragment } from 'react'
 const Sushi = (props) => {
 
   const handleClick = event => {
-    if (props.moneyRemaining > props.sushi.price) {
-      if (event.target.nodeName === 'IMG') {
-        event.target.parentNode.removeChild(event.target)
-      }
-      else {
-        event.target.removeChild(event.target.children[0])
-      }
+    if (props.moneyRemaining >= props.sushi.price) {
       props.eatSushi(props.sushi)
     }
+  }
+
+  const displayImage = () => {
+    if (props.sushi.img_url) {
+      return <img src={props.sushi.img_url} alt={props.sushi.name} width="100%" />
+    }
+    return null
   }
 
   return (
     <div className="sushi">
       <div className="plate" 
            onClick={handleClick}>
-        { 
-            <img src={props.sushi.img_url} alt={props.sushi.name} width="100%" />
-        }
+        {displayImage()}
       </div>
       <h4 className="sushi-details">
         {props.sushi.name} - ${props.sushi.price}

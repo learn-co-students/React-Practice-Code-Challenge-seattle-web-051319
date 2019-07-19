@@ -32,7 +32,9 @@ class App extends Component {
   }
 
   eatSushi = oneSushi => {
-      const sushi = [...this.state.sushi].filter(singleSushi => singleSushi !== oneSushi)
+      const sushi = [...this.state.sushi]
+      const specificSushi = sushi.find(singleSushi => oneSushi.id === singleSushi.id)
+       specificSushi.img_url = null
       const moneyRemaining = this.state.moneyRemaining - oneSushi.price
       const plates = [...this.state.plates]
       plates.push(oneSushi.name)
@@ -40,10 +42,14 @@ class App extends Component {
   }
 
   getMoreSushi = () => {
-    const displayedSushi = [...this.state.displayedSushi].slice(3, -1)
-    console.log(this.state.displayedSushi)
-    console.log(displayedSushi)
-    this.setState({displayedSushi})
+    if (this.state.displayedSushi.length > 4) {
+      const displayedSushi = [...this.state.displayedSushi].slice(3, -1)
+      this.setState({ displayedSushi })
+    }
+    else {
+      const displayedSushi = [...this.state.sushi]
+      this.setState({displayedSushi})
+    }
   }
 
   whileLoading = () => {
