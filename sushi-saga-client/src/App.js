@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SushiContainer from "./containers/SushiContainer";
 import Table from "./containers/Table";
+import Wallet from "./containers/Wallet";
 
 const API = "http://localhost:3000/sushis"
 
@@ -52,6 +53,17 @@ class App extends Component {
 			});
 		}
 	}
+	
+	addMoney = event => {
+		event.preventDefault();
+		
+		const balanceIncrease = parseInt(event.target.balanceIncrease.value, 10);
+		this.setState({
+			balance: this.state.balance + balanceIncrease
+		});
+		
+		event.target.reset();
+	}
 
 	componentDidMount() {
 		fetch(API)
@@ -66,15 +78,18 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="app">
-				<SushiContainer
-					allSushis={this.state.allSushis}
-					sushisIndex={this.state.sushisIndex}
-					updateIndex={this.updateIndex}
-					eatSushi={this.eatSushi} />
-				<Table
-					plates={this.state.plates}
-					balance={this.state.balance} />
+			<div>
+				<div className="app">
+					<SushiContainer
+						allSushis={this.state.allSushis}
+						sushisIndex={this.state.sushisIndex}
+						updateIndex={this.updateIndex}
+						eatSushi={this.eatSushi} />
+					<Table
+						plates={this.state.plates}
+						balance={this.state.balance} />
+				</div>
+				<Wallet addMoney={this.addMoney}/>
 			</div>
 		);
 	}
